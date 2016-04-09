@@ -4,7 +4,9 @@ import {
   CATEGORY_ADD,
   CATEGORY_UPDATE,
   CATEGORY_DELETE,
-  CATEGORY_SORT
+  CATEGORY_SORT,
+  BUDGET_UPDATE,
+  BUDGET_DISABLE,
 } from '../actions/actionTypes'
 
 const categoryReducer = (prevStateCategories, action, category) => {
@@ -33,13 +35,38 @@ const categoryReducer = (prevStateCategories, action, category) => {
         order:            category.order,
         name:             action.name,
         icon_name:        action.icon_name,
-        budget_enabled:   category.budgetEnabled,
-        budget_timeframe: category.budgetTimeframe,
-        budget_amount:    category.budget,
+        budget_enabled:   category.budget_enabled,
+        budget_timeframe: category.budget_timeframe,
+        budget_amount:    category.budget_amount,
         expenses_id:      category.expenses
       }
+
+    case BUDGET_UPDATE:
+      return {
+        id:               category.id,
+        order:            category.order,
+        name:             category.name,
+        icon_name:        category.icon_name,
+        budget_enabled:   true,
+        budget_timeframe: action.budget_timeframe,
+        budget_amount:    action.budget_amount,
+        expenses_id:      category.expenses
+      }
+
+    case BUDGET_DISABLE:
+      return {
+        id:               category.id,
+        order:            category.order,
+        name:             category.name,
+        icon_name:        category.icon_name,
+        budget_enabled:   false,
+        budget_timeframe: category.budget_timeframe,
+        budget_amount:    0,
+        expenses_id:      category.expenses
+      }
+
     default:
-      return prevStateCategories
+      return category
   }
 }
 
@@ -108,6 +135,27 @@ const categoriesReducer = (prevStateCategories = [], action) => {
         }
       };
       return afterDeleteCategories;
+
+    case BUDGET_UPDATE:
+      return prevStateCategories.map((category) => {
+        if (action.id === category.id) {
+          return categoryReducer(prevStateCategories, action, category);
+        }
+        else {
+          return category;
+        }
+      })
+
+    case BUDGET_DISABLE:
+      return prevStateCategories.map((category) => {
+        if (action.id === category.id) {
+          return categoryReducer(prevStateCategories, action, category);
+        }
+        else {
+          return category;
+        }
+      })
+
 
     default:
       return prevStateCategories;

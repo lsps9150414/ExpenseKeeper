@@ -5,73 +5,114 @@ import React, {
   View,
   ScrollView,
   StyleSheet,
+  PropTypes,
   Component
-} from 'react-native';
+} from 'react-native'
 
-import ListItem from '../../material/ListItem';
-import Subheader from '../../material/text/Subheader';
-import {MockupCategories} from '../../../containers/mockupdata';
+import ListItem from '../../material/ListItem'
+import Subheader from '../../material/text/Subheader'
+import DialogBudgetEditing from '../../../components/custom/dialogs/DialogBudgetEditing'
+import { categoryIconColors } from '../../../constants/categoryIconColors'
+import Modal from 'react-native-modalbox'
+import NumberPad from '../../../components/custom/dialogs/NumberPad'
 
 export default class BudgetSetting extends Component {
+  constructor() {
+    super();
+    this.state = {
+      openModal: false,
+      pressedCategoryID: '',
+      pressedCategoryBudgetAmount: 0,
+      pressedCategoryBudgetTimeframe: '',
+    }
+  }
+  static propTypes = {
+    monthlyBudgetCategories:  PropTypes.array,
+    yearlyBudgetCategories:   PropTypes.array,
+    disabledBudgetCategories: PropTypes.array,
+  }
+
   render() {
+    // TODO: Format currency using Number.toLocaleString().
     return (
       <View style={{flex: 1}}>
         <ScrollView>
-          <Subheader
-            color={'#000'}
-            textRight={'$5,000/Month'}>
-              MONTHLY BUDGET
-          </Subheader>
-          {this._renderBudgetSettingListItem('layers', '#555', 'overall', 15000, () => {})}
+          { this._renderBudgetSubheader('MONTHLY BUDGET', this.props.monthlyBudgetTotalAmount) }
           {
-            MockupCategories.categories.sort(this._compare).map((category, index) => {
-              if (category.budget_disabled != true && category.budget_timeframe == 'month') {
-                return this._renderBudgetSettingListItem(category.icon, category.color, category.name, category.budget, () => {}, index);
-              }
+            this.props.monthlyBudgetCategories.sort(this._compareOrder).map((category, index) => {
+              return this._renderBudgetCategory(category.id, category.name, category.icon_name, category.budget_amount, category.budget_timeframe, this._openDialogBudgetEditing.bind(this), index);
             })
           }
-          <Subheader
-            color={'#000'}
-            textRight={'$5,000/Year'}>
-            YEARLY BUDGET
-          </Subheader>
+
+          { this._renderBudgetSubheader('YEARLY BUDGET', this.props.yearlyBudgetTotalAmount) }
           {
-            MockupCategories.categories.map((category, index) => {
-              if (category.budget_disabled != true && category.budget_timeframe == 'year') {
-                return this._renderBudgetSettingListItem(category.icon, category.color, category.name, category.budget, () => {}, index);
-              }
+            this.props.yearlyBudgetCategories.sort(this._compareOrder).map((category, index) => {
+              return this._renderBudgetCategory(category.id, category.name, category.icon_name, category.budget_amount, category.budget_timeframe, this._openDialogBudgetEditing.bind(this), index);
             })
           }
-          <Subheader
-            color={'#000'}>
-            NO BUDGET
-          </Subheader>
+          { this._renderBudgetSubheader('NO BUDGET', null) }
           {
-            MockupCategories.categories.map((category, index) => {
-              if (category.budget_disabled == true) {
-                return this._renderBudgetSettingListItem(category.icon, category.color, category.name, 'disabled', () => {}, index);
-              }
+            this.props.disabledBudgetCategories.sort(this._compareOrder).map((category, index) => {
+              return this._renderBudgetCategory(category.id, category.name, category.icon_name, 'disabled', category.budget_timeframe, this._openDialogBudgetEditing.bind(this), index);
             })
           }
         </ScrollView>
+        <DialogBudgetEditing
+          backdrop={true}
+          position={'center'}
+          isOpen={this.state.openModal}
+          closeModal={ () => {this.setState({openModal: false})} }
+          defaultBudgetAmount={this.state.pressedCategoryBudgetAmount}
+          defaultBudgetTimeframe={this.state.pressedCategoryBudgetTimeframe}
+          updateBudget={(budgetInput, budgetTimeframe) => {
+            this.props.onBudgetUpdateHandler(this.state.pressedCategoryID, budgetInput, budgetTimeframe);
+          }}
+          disableBudget={() =>
+            {this.props.onBudgetDisableHandler(this.state.pressedCategoryID);
+          }}
+          />
       </View>
     )
   }
-  _renderBudgetSettingListItem(icon, color, name, budget, onEditPress, index = 0) {
+  _renderBudgetSubheader(text, totalAmount) {
+    let displayedTotalAmount = (typeof totalAmount == 'number') ? ('$ ' + totalAmount.toLocaleString()) : '';
+    return (
+      <Subheader
+        style={{paddingRight: 56}}
+        textRightStyle={{fontWeight: '500'}}
+        color={'#000'}
+        textRight={displayedTotalAmount}>
+        {text}
+      </Subheader>
+    )
+  }
+  _renderBudgetCategory(id, name, iconName, budgetAmount, budgetTimeframe, onEditPress, index = 0) {
     return (
       <ListItem
         key={index}
-        avatarLeftName={icon}
+        avatarLeftName={iconName}
         avatarColor={'#fff'}
-        avatarBgColor={color}
+        avatarBgColor={ categoryIconColors[iconName] }
         iconRightName={'edit'}
-        onIconRightPress={onEditPress}
+        onIconRightPress={() => {onEditPress(id, budgetAmount, budgetTimeframe)}}
         textPrimary={name.charAt(0).toUpperCase() + name.slice(1)}
-        textRight={(typeof budget == "number") ? ('$' + budget) : budget}
+        textRight={(typeof budgetAmount == "number") ? ('$ ' + budgetAmount.toLocaleString()) : budgetAmount}
       />
     )
   }
-  _compare(a, b) {
+  _openDialogBudgetEditing(categoryID, categoryBudget, categoryBudgetTimeframe) {
+    this.setState({
+      openModal: true,
+      pressedCategoryID: categoryID,
+      pressedCategoryBudgetAmount: Number(categoryBudget) ? categoryBudget : 0,
+      pressedCategoryBudgetTimeframe: categoryBudgetTimeframe,
+    });
+  }
+  _compareOrder(a, b) {
     return a.order - b.order
   }
 };
+
+let styles = StyleSheet.create({
+
+})

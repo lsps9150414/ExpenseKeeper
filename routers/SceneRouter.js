@@ -9,8 +9,8 @@ import React, {
 } from 'react-native'
 
 import CategprySettingContainer from '../containers/CategorySettingContainer'
-// import CategoryEditing from '../components/pages/settings/CategoryEditing'
 import CategoryEditingContainer from '../containers/CategoryEditingContainer'
+import BudgetSettingContainer from '../containers/BudgetSettingContainer'
 import BudgetSetting from '../components/pages/settings/BudgetSetting'
 import History from '../components/pages/History'
 import Home from '../components/pages/Home'
@@ -50,11 +50,13 @@ export default function(route, navigator, mainRef) {
       scene = (<CategoryEditingContainer categoryID={route.props.categoryID} getSceneState={route.props.getSceneState} />);
       break;
     case 'budgetSetting':
-      scene = (<BudgetSetting/>);
+      scene = (<BudgetSettingContainer />);
       break;
-    case 'dailyReportSetting':
-      scene = (<CategorySetting/>);
-      break;
+
+    // TODO: Build dailyReportSetting.
+    // case 'dailyReportSetting':
+    //   scene = (<CategorySetting/>);
+    //   break;
 
     default:
       scene = (<Text>No match route.</Text>)

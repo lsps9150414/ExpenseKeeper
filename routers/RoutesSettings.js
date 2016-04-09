@@ -30,10 +30,10 @@ export const RoutesSettings = [
       title: 'Budgets',
     }
   },
-  {
-    name: 'dailyReportSetting',
-    props: {
-      title: 'Daily reports',
-    }
-  },
+  // {
+  //   name: 'dailyReportSetting',
+  //   props: {
+  //     title: 'Daily reports',
+  //   }
+  // },
 ];

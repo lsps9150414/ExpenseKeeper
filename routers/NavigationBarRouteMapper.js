@@ -98,11 +98,6 @@ export default function(mainRef) {
             <View style={styles.rightButtonContainer}>
               <TouchableHighlight
                   style={styles.rightButton}
-                  onPress={ () => {} }>
-                <Icon name={'settings'} size={24} color={'#fff'}/>
-              </TouchableHighlight>
-              <TouchableHighlight
-                  style={styles.rightButton}
                   onPress={ () => {} } >
                 <Icon name={'more-vert'} size={24} color={'#fff'}/>
               </TouchableHighlight>

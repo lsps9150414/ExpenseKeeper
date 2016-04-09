@@ -8,10 +8,11 @@ import React, {
 
 export default class Subheader extends Component {
   static propTypes = {
-    children:   PropTypes.string.isRequired,
-    textRight:  PropTypes.string,
-    center:     PropTypes.bool,
-    color:      PropTypes.string
+    children:       PropTypes.string.isRequired,
+    textRight:      PropTypes.string,
+    textRightStyle: PropTypes.object,
+    center:         PropTypes.bool,
+    color:          PropTypes.string
   };
 
   render() {
@@ -23,11 +24,11 @@ export default class Subheader extends Component {
     } = this.props;
 
     if (textRight) {
-      var rightElement = (<Text style={styles.textRight}>{textRight}</Text>);
+      var rightElement = (<Text style={[styles.textRight, this.props.textRightStyle]}>{textRight}</Text>);
     }
 
     return (
-      <View style={[styles.container, center && {justifyContent: 'center'}]}>
+      <View style={[styles.container, center && {justifyContent: 'center'}, this.props.style]}>
         <Text style={[styles.text, this.props.style, color && {color: color}]}>
           {children}
         </Text>

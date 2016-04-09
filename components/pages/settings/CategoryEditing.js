@@ -47,6 +47,7 @@ export default class CategoryEditing extends Component {
             height: 48,
           }}
           autoFocus={true}
+          /*FIXME: autoCapitalize not working*/
           autoCapitalize={'words'}
           defaultValue={this.state.categoryName}
           onChangeText={(inputText) => {
@@ -70,7 +71,7 @@ export default class CategoryEditing extends Component {
     if (
       this.state.categoryName != '' &&
       this.state.categoryIconName != '') {
-      this.setState({stateReady: true});  
+      this.setState({stateReady: true});
       return true;
     }
     else {

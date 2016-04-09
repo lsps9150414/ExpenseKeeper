@@ -6,6 +6,7 @@ import React, {
   ScrollView,
   StyleSheet,
   Navigator,
+  PropTypes,
   Component
 } from 'react-native';
 
@@ -21,7 +22,9 @@ export default class Settings extends Component {
       switchValue: false,
     }
   }
-
+  static propTypes = {
+    navigator: PropTypes.object,
+  }
   render() {
     return (
       <View style={{flex: 1}}>
@@ -52,7 +55,8 @@ export default class Settings extends Component {
                   />
                 )
               case 'categoryEditing':
-                  return null;
+                // NOTE: Hide categoryEditing in Settings List.
+                return null;
 
               default:
                 return (

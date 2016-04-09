@@ -2,7 +2,9 @@ import {
   CATEGORY_ADD,
   CATEGORY_UPDATE,
   CATEGORY_DELETE,
-  CATEGORY_SORT
+  CATEGORY_SORT,
+  BUDGET_UPDATE,
+  BUDGET_DISABLE,
 } from './actionTypes'
 
 export const categoryAdd = (name, iconName) => {
@@ -15,7 +17,6 @@ export const categoryAdd = (name, iconName) => {
     budget_amount: 0,
   }
 }
-
 export const categoryUpdate = (id, name, iconName) => {
   return {
     type: CATEGORY_UPDATE,
@@ -24,7 +25,6 @@ export const categoryUpdate = (id, name, iconName) => {
     icon_name: iconName,
   }
 }
-
 export const categorySort = (moveFromOrder, moveToOrder) => {
   return {
     type: CATEGORY_SORT,
@@ -32,10 +32,24 @@ export const categorySort = (moveFromOrder, moveToOrder) => {
     moveToOrder: moveToOrder
   }
 }
-
 export const categoryDelete = (id) => {
   return {
     type: CATEGORY_DELETE,
+    id: id,
+  }
+}
+
+export const budgetUpdate = (id, budgetAmount, budgetTimeframe) => {
+  return {
+    type: BUDGET_UPDATE,
+    id: id,
+    budget_amount: budgetAmount,
+    budget_timeframe: budgetTimeframe,
+  }
+}
+export const budgetDisable = (id) => {
+  return {
+    type: BUDGET_DISABLE,
     id: id,
   }
 }
