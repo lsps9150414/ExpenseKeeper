@@ -11,6 +11,13 @@ import CategorySelectionGrid from '../../../components/custom/CategorySelectionG
 import { categoryIconColors } from '../../../constants/categoryIconColors'
 
 export default class CategoryEditing extends Component {
+  static propTypes = {
+    categoryID:       PropTypes.string,
+    categoryName:     PropTypes.string.isRequired,
+    categoryIconName: PropTypes.string.isRequired,
+    getSceneState:    PropTypes.func.isRequired,
+    categoryEditing:  PropTypes.bool,
+  }
   constructor(props) {
     super(props);
     this.state = {
@@ -25,13 +32,6 @@ export default class CategoryEditing extends Component {
       //   budgetAmount: 0,
       // },
     }
-  }
-  static propTypes = {
-    categoryID:       PropTypes.string,
-    categoryName:     PropTypes.string.isRequired,
-    categoryIconName: PropTypes.string.isRequired,
-    getSceneState:    PropTypes.func.isRequired,
-    categoryEditing:  PropTypes.bool,
   }
 
   componentWillMount() {

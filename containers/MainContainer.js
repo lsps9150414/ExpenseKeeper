@@ -4,7 +4,10 @@ import Main from '../components/Main'
 import {
   categoryAdd,
   categoryUpdate,
-  categoryDelete
+  categoryDelete,
+  expenseAdd,
+  expenseUpdate,
+  expenseDelete,
 } from '../actions'
 
 const mapStateToProps = (state) => {
@@ -13,6 +16,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
+    // for category
     onCategoryAddHandler: (categoryAddState) => {
       dispatch(categoryAdd(
         categoryAddState.categoryName,
@@ -28,6 +32,15 @@ const mapDispatchToProps = (dispatch) => {
     },
     onCategoryDeleteHandler: (categoryDeleteState) => {
       dispatch(categoryDelete(categoryDeleteState.categoryID));
+    },
+    // for expense
+    onExpenseAddHandler: (expenseAddState) => {
+      dispatch(expenseAdd(
+        expenseAddState.expenseAmount,
+        expenseAddState.expenseDate,
+        expenseAddState.expenseNote,
+        expenseAddState.expenseCategory
+      ));
     }
   }
 }

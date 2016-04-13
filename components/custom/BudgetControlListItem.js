@@ -1,6 +1,6 @@
 'use strict';
 
-import Icon from 'react-native-vector-icons/MaterialIcons';
+import Icon from 'react-native-vector-icons/MaterialIcons'
 import React, {
   Text,
   View,
@@ -8,10 +8,10 @@ import React, {
   StyleSheet,
   PropTypes,
   Component
-} from 'react-native';
+} from 'react-native'
 
-import TextPrimary from '../material/text/TextPrimary';
-import TextSecondary from '../material/text/TextSecondary';
+import TextPrimary from '../material/text/TextPrimary'
+import TextSecondary from '../material/text/TextSecondary'
 
 export default class ListItemWithAmount extends Component {
   static propTypes = {

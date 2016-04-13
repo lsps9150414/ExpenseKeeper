@@ -14,9 +14,10 @@ import {
   MKRadioButton,
  } from 'react-native-material-kit'
 
+let modalHeight = 0;
+
 export default class DialogBudgetEditing extends Component {
   static propTypes = {
-
   }
   constructor() {
     super();
@@ -35,7 +36,9 @@ export default class DialogBudgetEditing extends Component {
         position={this.props.position}
         animationDuration={200}
         isOpen={this.props.isOpen}>
-        <View style={styles.radioButtonAreaContainer}>
+        <View
+          style={styles.radioButtonAreaContainer}
+          onLayout={ (e) => {modalHeight += e.nativeEvent.layout.height} }>
           <View style={styles.radioButtonContainer}>
             <MKRadioButton
               checked={this.props.defaultBudgetTimeframe == 'month'}
@@ -57,10 +60,16 @@ export default class DialogBudgetEditing extends Component {
         </View>
         <NumberPad
           defaultInput={this.props.defaultBudgetAmount}
-          getInput={ (input) => {this.setState({budgetInput: input})} } />
+          getInput={ (input) => {this.setState({budgetInput: input})} }
+          onLayout={ (e) => {modalHeight += e.nativeEvent.layout.height} }/>
         <DialogButtonGroup
           buttonTexts={['cancel', 'disable', 'ok']}
-          onPressHandlers={[this._onCancelHandler.bind(this), this._onDisableHandler.bind(this), this._onOkHandler.bind(this)]}/>
+          onPressHandlers={[
+            this._onCancelHandler.bind(this),
+            this._onDisableHandler.bind(this),
+            this._onOkHandler.bind(this)
+          ]}
+          onLayout={ (e) => {modalHeight += e.nativeEvent.layout.height} }/>
       </Modal>
     )
   }
@@ -79,8 +88,9 @@ export default class DialogBudgetEditing extends Component {
 
 let styles = StyleSheet.create({
   modal: {
+    position: 'relative',
     width: 280,
-    height: 360,
+    height: modalHeight,
   },
   radioButtonAreaContainer: {
     flexDirection: 'row',

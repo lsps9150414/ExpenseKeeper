@@ -67,10 +67,10 @@ export default class BudgetSetting extends Component {
           updateBudget={(budgetInput, budgetTimeframe) => {
             this.props.onBudgetUpdateHandler(this.state.pressedCategoryID, budgetInput, budgetTimeframe);
           }}
-          disableBudget={() =>
-            {this.props.onBudgetDisableHandler(this.state.pressedCategoryID);
+          disableBudget={() => {
+            this.props.onBudgetDisableHandler(this.state.pressedCategoryID);
           }}
-          />
+        />
       </View>
     )
   }

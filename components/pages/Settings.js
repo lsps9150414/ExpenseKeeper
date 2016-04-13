@@ -8,12 +8,11 @@ import React, {
   Navigator,
   PropTypes,
   Component
-} from 'react-native';
+} from 'react-native'
 
-import ListItem from '../../components/material/ListItem';
-import Subheader from '../material/text/Subheader';
-import {GlobalStyle} from '../../styles/GlobalStyles';
-import {RoutesSettings} from '../../routers/RoutesSettings';
+import ListItem from '../../components/material/ListItem'
+import Subheader from '../material/text/Subheader'
+import {RoutesSettings} from '../../routers/RoutesSettings'
 
 export default class Settings extends Component {
   constructor(props) {

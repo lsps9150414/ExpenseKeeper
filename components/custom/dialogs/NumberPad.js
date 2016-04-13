@@ -13,6 +13,7 @@ export default class NumberPad extends Component {
   static propTypes = {
     defaultInput: PropTypes.number,
     getInput:     PropTypes.func.isRequired,
+    clearInput:   PropTypes.func,
   }
   static defaultProps = {
     defaultInput: 0,
@@ -35,10 +36,9 @@ export default class NumberPad extends Component {
     numberPadButton.push(this._renderNumberButton(0));
     numberPadButton.push(this._renderNumberButton('.'));
     return (
-      <View>
+      <View style={styles.container}>
         <View style={styles.inputContainer}>
-          <Text
-            style={styles.input}>
+          <Text style={styles.input}>
             $ {this.state.input}
           </Text>
           <TouchableHighlight
@@ -84,13 +84,19 @@ export default class NumberPad extends Component {
 }
 
 let styles = StyleSheet.create({
+  container: {
+    borderTopWidth: 0.3,
+    borderBottomWidth: 0.3,
+    borderColor: 'rgb(212, 212, 212)'
+  },
   inputContainer: {
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'flex-end',
     alignItems: 'center',
-    borderTopWidth: 0.25,
-    borderBottomWidth: 0.25,
+    height: 64,
+    borderBottomWidth: 0.3,
+    borderColor: 'rgb(212, 212, 212)'
   },
   input: {
     textAlign: 'right',
@@ -109,6 +115,7 @@ let styles = StyleSheet.create({
   },
   numberPadButton: {
     flex: 1,
+    height: 48,
   },
   numberPadNumber: {
     textAlign: 'center',

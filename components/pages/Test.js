@@ -1,5 +1,6 @@
 'use strict';
 
+import Modal from 'react-native-modalbox'
 import React, {
   Text,
   View,
@@ -7,11 +8,16 @@ import React, {
   TouchableHighlight,
   StyleSheet,
   Component
-} from 'react-native';
+} from 'react-native'
+import {
+  setTheme,
+  MKColor,
+  MKButton,
+ } from 'react-native-material-kit'
 
 import ListItem from '../material/ListItem'
 import TestComponent from '../TestComponent'
-import Modal from 'react-native-modalbox'
+
 // import Slider from 'react-native-slider'
 
 var DialogAndroid = require('react-native-dialogs');
@@ -50,15 +56,6 @@ export default class Test extends Component {
     this.modalRef.open();
   }
 
-
-  onClose() {
-    console.log('Modal just closed');
-  }
-
-  onOpen() {
-    console.log('Modal just openned');
-  }
-
   onClosingState(state) {
     console.log('the open/close of the swipeToClose just changed');
   }
@@ -73,6 +70,10 @@ export default class Test extends Component {
         <Modal style={[styles.modal, styles.modal2]} backdrop={true}  position={"center"} isOpen={this.state.isOpen} ref={(ref) => {this.modalRef = ref}}>
           <Text style={[styles.text]}>{this.state.modalText}</Text>
         </Modal>
+
+        <ColoredFab></ColoredFab>
+        <AccentColoredFab></AccentColoredFab>
+        <PlainFab></PlainFab>
       </View>
     )
   }
@@ -118,4 +119,20 @@ var styles = StyleSheet.create({
     height: 300,
     width: 300
   },
+  fab: {
+    // width: 40,
+    // height: 40,
+    // borderRadius: 100,
+  }
 });
+
+
+const ColoredFab = MKButton.coloredFab()
+  .withStyle(styles.fab)
+  .build();
+const AccentColoredFab = MKButton.accentColoredFab()
+  .withStyle(styles.fab)
+  .build();
+const PlainFab = MKButton.plainFab()
+  .withStyle(styles.fab)
+  .build();

@@ -8,6 +8,11 @@ import React, {
   PropTypes,
   Component
 } from 'react-native'
+import {
+  setTheme,
+  MKColor,
+  MKRadioButton,
+ } from 'react-native-material-kit'
 
 import TextPrimary from './text/TextPrimary'
 import TextSecondary from './text/TextSecondary'
@@ -49,6 +54,10 @@ export default class ListItem extends Component {
     switchValue: PropTypes.bool,
     switchDisabled: PropTypes.bool,
     onSwitchValueChange: PropTypes.func,
+
+    radioButtonChecked: PropTypes.bool,
+    radioButtonGroup: PropTypes.object,
+    onRadioButtonCheckedChange: PropTypes.func,
   };
   static defaultProps = {
     drawer: false,
@@ -67,7 +76,7 @@ export default class ListItem extends Component {
     textRightStyle: null,
 
     iconSize: null,
-    iconColor: "#aaa",
+    iconColor: '#aaa',
 
     iconLeftName: null,
     onIconLeftPress: null,
@@ -86,6 +95,10 @@ export default class ListItem extends Component {
     switchValue: null,
     switchDisabled: null,
     onSwitchValueChange: null,
+
+    radioButtonChecked: null,
+    radioButtonGroup: null,
+    onRadioButtonCheckedChange: null,
   };
 
   render() {
@@ -126,6 +139,10 @@ export default class ListItem extends Component {
       switchValue,
       switchDisabled,
       onSwitchValueChange,
+
+      radioButtonChecked,
+      radioButtonGroup,
+      onRadioButtonCheckedChange,
     } = this.props;
 
     var defaultListItemHeight = drawer ? (dense ? 48 : 56) : (textSecondary ? (dense ? 60 : 72) : (avatarLeftName || avatarImgSrc ? (dense ? 48 : 56) : (dense ? 40 : 48)));
@@ -157,7 +174,15 @@ export default class ListItem extends Component {
     };
 
     // rightElement
-    if (switchValue !== null) {
+    if (radioButtonChecked !== null) {
+      var rightElement = (
+        <MKRadioButton
+          checked={radioButtonChecked}
+          group={radioButtonGroup}
+          onCheckedChange={onRadioButtonCheckedChange}/>
+      )
+    }
+    else if (switchValue !== null) {
       var rightElement = (
         <Switch
           value={switchValue}

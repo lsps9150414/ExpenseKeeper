@@ -17,8 +17,7 @@ import ListItem from '../components/material/ListItem'
 import NavigationBarRouteMapper from '../routers/NavigationBarRouteMapper'
 import SceneRouter from '../routers/SceneRouter'
 import TextPrimary from '../components/material/text/TextPrimary'
-import {RoutesMain} from '../routers/RoutesMain'
-import {GlobalStyle} from '../styles/GlobalStyles'
+import { RoutesMain, RoutesExpenseEditing } from '../routers/Routes'
 
 export default class Main extends Component {
   constructor(props) {
@@ -39,7 +38,7 @@ export default class Main extends Component {
         drawerWidth={300}
         drawerPosition={ DrawerLayoutAndroid.positions.Left }
         renderNavigationView={ this._renderDrawerContent.bind(this) }>
-        { this._renderNavigator(RoutesMain[4], SceneRouter, Navigator.SceneConfigs.FadeAndroid) }
+        { this._renderNavigator(RoutesMain[2], SceneRouter, Navigator.SceneConfigs.FadeAndroid) }
       </DrawerLayoutAndroid>
     )
   }
@@ -99,14 +98,21 @@ export default class Main extends Component {
       })
     }
   }
-  _onCategoyEditDone() {
-    // console.log('_onCategoyEditDone');
+  _onToolbarDone() {
+    console.log('_onToolbarDone');
+    console.log(this.state.sceneState);
     if (this.state.sceneState.stateReady) {
-      if (this.state.sceneState.categoryEditing) {
+      if (this.state.sceneState.categoryEditing == false) {
+        this.props.onCategoryAddHandler(this.state.sceneState);
+      }
+      else if (this.state.sceneState.categoryEditing == true) {
         this.props.onCategoryUpdateHandler(this.state.sceneState);
       }
-      else {
-        this.props.onCategoryAddHandler(this.state.sceneState);
+      else if (this.state.sceneState.scene == 'expenseEditing') {
+        this.props.onExpenseAddHandler(this.state.sceneState);
+      }
+      else if (this.state.sceneState.scene == 'expenseEditing') {
+        // this.props.onExpenseUpdateHandler(this.state.sceneState);
       }
       return true;
     }
@@ -114,8 +120,8 @@ export default class Main extends Component {
       return false;
     }
   }
-  _onCategoryEditDelete() {
-    // console.log('_onCategoryEditDelete');
+  _onToolbarDelete() {
+    // console.log('_onToolbarDelete');
     this.props.onCategoryDeleteHandler(this.state.sceneState);
   }
 };

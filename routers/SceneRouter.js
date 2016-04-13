@@ -10,9 +10,10 @@ import React, {
 
 import CategprySettingContainer from '../containers/CategorySettingContainer'
 import CategoryEditingContainer from '../containers/CategoryEditingContainer'
-import BudgetSettingContainer from '../containers/BudgetSettingContainer'
-import BudgetSetting from '../components/pages/settings/BudgetSetting'
-import History from '../components/pages/History'
+import BudgetSettingContainer   from '../containers/BudgetSettingContainer'
+import BudgetSetting            from '../components/pages/settings/BudgetSetting'
+import ExpenseContainer         from '../containers/ExpenseContainer'
+import ExpenseEditingContainer  from '../containers/ExpenseEditingContainer'
 import Home from '../components/pages/Home'
 import Test from '../components/pages/Test'
 import Settings from '../components/pages/Settings'
@@ -28,8 +29,11 @@ export default function(route, navigator, mainRef) {
     case 'main':
       scene = (<Home/>);
       break;
-    case 'history':
-      scene = (<History/>);
+    case 'expense':
+      scene = (<ExpenseContainer navigator={navigator} />);
+      break;
+    case 'expenseEditing':
+      scene = (<ExpenseEditingContainer getSceneState={mainRef._getSceneState.bind(mainRef)} />);
       break;
     case 'charts':
       scene =  (

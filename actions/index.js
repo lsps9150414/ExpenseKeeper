@@ -5,8 +5,12 @@ import {
   CATEGORY_SORT,
   BUDGET_UPDATE,
   BUDGET_DISABLE,
+  EXPENSE_ADD,
+  EXPENSE_UPDATE,
+  EXPENSE_DELETE,
 } from './actionTypes'
 
+// for category
 export const categoryAdd = (name, iconName) => {
   return {
     type: CATEGORY_ADD,
@@ -38,7 +42,7 @@ export const categoryDelete = (id) => {
     id: id,
   }
 }
-
+// for budget
 export const budgetUpdate = (id, budgetAmount, budgetTimeframe) => {
   return {
     type: BUDGET_UPDATE,
@@ -51,5 +55,25 @@ export const budgetDisable = (id) => {
   return {
     type: BUDGET_DISABLE,
     id: id,
+  }
+}
+// for expense
+export const expenseAdd = (amount, date, note, categoryID) => {
+  return {
+    type: EXPENSE_ADD,
+    amount: amount,
+    date: date,
+    note: note,
+    category_id: categoryID,
+  }
+}
+export const expenseUpdate = () => {
+  return {
+    type: EXPENSE_UPDATE,
+  }
+}
+export const expenseDelete = () => {
+  return {
+    type: EXPENSE_DELETE,
   }
 }

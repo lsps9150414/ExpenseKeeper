@@ -11,7 +11,6 @@ import React, {
 import BudgetControlListItem from '../custom/BudgetControlListItem';
 import Subheader from '../material/text/Subheader';
 import TodayIndicator from '../custom/TodayIndicator';
-import {GlobalStyle} from '../../styles/GlobalStyles';
 
 export default class Home extends Component {
   render() {

@@ -3,20 +3,25 @@ import { categoryIconColors } from '../constants/categoryIconColors'
 export var initStateTree = {
   expenses: [
     {
-      id: 1,
-      date: '2016-03-07',
+      id: 'ID-0',
+      date: new Date(2015, 10, 1),
       amount: 100,
-      category_id: 1,
+      category_id: 'ID-0',
       note: 'lunch at BurgerKing',
-      photo: null,
     },
     {
-      id: 2,
-      date: '2016-03-08',
+      id: 'ID-1',
+      date: new Date(2015, 10, 2),
       amount: 20,
-      category_id: 2,
+      category_id: 'ID-1',
       note: 'egg',
-      photo: null,
+    },
+    {
+      id: 'ID-2',
+      date: new Date(2016, 1),
+      amount: 20,
+      category_id: 'ID-1',
+      note: 'egg',
     }
   ],
   categories: [

@@ -1,16 +1,19 @@
 'use strict';
 
-import Icon from 'react-native-vector-icons/MaterialIcons';
+import Icon from 'react-native-vector-icons/MaterialIcons'
 import React, {
   Text,
   View,
   TouchableHighlight,
   StyleSheet,
   Component
-} from 'react-native';
+} from 'react-native'
 
-import {RoutesMain} from '../routers/RoutesMain';
-import {RoutesSettings} from '../routers/RoutesSettings';
+import {
+  RoutesMain,
+  RoutesSettings,
+  RoutesExpenseEditing
+} from '../routers/Routes'
 
 // TODO: STYLING set title & icon style with props
 export default function(mainRef) {
@@ -40,7 +43,7 @@ export default function(mainRef) {
       }
       // For RoutesSettings
       for (var i = 0; i < RoutesSettings.length; i++) {
-        if (route.name == RoutesSettings[i].name) {
+        if (route.name == RoutesSettings[i].name || route.name == RoutesExpenseEditing.name) {
           return (
             <TouchableHighlight
               style={styles.leftButton}
@@ -54,6 +57,24 @@ export default function(mainRef) {
     },
     RightButton(route, navigator, index, navState) {
       switch (route.name) {
+        // case 'expense':
+        //   let expenseEditingRoute = {
+        //     name: 'expenseEditing',
+        //     props: {
+        //       title: 'Edit',
+        //       getSceneState: mainRef._getSceneState.bind(mainRef),
+        //     }
+        //   };
+        //   return (
+        //     <View style={styles.rightButtonContainer}>
+        //       <TouchableHighlight
+        //           style={styles.rightButton}
+        //           onPress={ () => {navigator.push(expenseEditingRoute)} } >
+        //         <Icon name={'more-vert'} size={24} color={'#fff'}/>
+        //       </TouchableHighlight>
+        //     </View>
+        //   );
+
         case 'categorySetting':
           // TODO: make passing props via navigator more general and make it possible to manage all Routes at a central place.
           let categoryEditingRoute = {
@@ -73,21 +94,22 @@ export default function(mainRef) {
             </View>
           );
 
+        case 'expenseEditing':
         case 'categoryEditing':
           return (
             <View style={styles.rightButtonContainer}>
               <TouchableHighlight
                   style={styles.rightButton}
                   onPress={ () => {
-                    mainRef._onCategoryEditDelete();
+                    mainRef._onToolbarDelete();
                     navigator.pop();
-                  }} >
+                  }}>
                 <Icon name={'delete'} size={24} color={'#fff'}/>
               </TouchableHighlight>
               <TouchableHighlight
                   style={styles.rightButton}
                   onPress={ () => {
-                    mainRef._onCategoyEditDone() && navigator.pop();
+                    mainRef._onToolbarDone() && navigator.pop();
                   }}>
                 <Icon name={'check'} size={24} color={'#fff'}/>
               </TouchableHighlight>

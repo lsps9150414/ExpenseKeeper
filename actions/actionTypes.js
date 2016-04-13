@@ -6,3 +6,7 @@ export const CATEGORY_DELETE =  'CATEGORY_DELETE'
 
 export const BUDGET_DISABLE = 'BUDGET_DISABLE'
 export const BUDGET_UPDATE =  'BUDGET_UPDATE'
+
+export const EXPENSE_ADD =     'EXPENSE_ADD'
+export const EXPENSE_UPDATE =  'EXPENSE_UPDATE'
+export const EXPENSE_DELETE =  'EXPENSE_DELETE'
