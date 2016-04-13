@@ -26,7 +26,7 @@ export default class ExpenseEditing extends Component {
     super();
     this.state = {
       scene: 'expenseEditing',
-      openModal: false,
+      openModal: true,
       spentAmount: 0,
       selectedCategoryID: 'ID-0',
       stateReady: false,

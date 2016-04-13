@@ -45,31 +45,35 @@ export default class Expense extends Component {
   }
 
   componentWillMount() {
-    this._fetchAllExpense(MockupExpenses, MockupCategories);
+    this.setState({
+      dataSource: this.state.dataSource.cloneWithRowsAndSections(this.props.dataBlob, this.props.sectionIDs, this.props.rowIDs),
+      loaded: true
+    });
+    // this._fetchAllExpense(MockupExpenses, MockupCategories);
   }
 
   _fetchAllExpense(expenses, categories) {
     var dataBlob = {
-      's1'       : { "month": 'Mar', 'year': '2016', "spent": 18000 },
-      's2'       : { "month": 'Feb', 'year': '2016', "spent": 18000 },
-      's3'       : { "month": 'Jan', 'year': '2016', "spent": 18000 },
+      '2016-03'  : { "month": 'Mar', 'year': '2016', "spent": 18000 },
+      '2016-02'  : { "month": 'Feb', 'year': '2016', "spent": 18000 },
+      '2016-01'  : { "month": 'Jan', 'year': '2016', "spent": 18000 },
 
-      's1:rowID1': {"categoryName": "FOOD",           "iconName": "home", "color": "#ccc", "date": "Mar 3, 2016",  "amount": 150 },
-      's1:rowID2': {"categoryName": "TRANSPORTATION", "iconName": "home", "color": "#ccc", "date": "Mar 2, 2016",  "amount": 250 },
-      's1:rowID3': {"categoryName": "FOOD",           "iconName": "home", "color": "#ccc", "date": "Mar 1, 2016",  "amount": 350 },
-      's1:rowID4': {"categoryName": "FOOD",           "iconName": "home", "color": "#ccc", "date": "Mar 1, 2016",  "amount": 350 },
-      's1:rowID5': {"categoryName": "FOOD",           "iconName": "home", "color": "#ccc", "date": "Mar 1, 2016",  "amount": 350 },
-      's1:rowID6': {"categoryName": "FOOD",           "iconName": "home", "color": "#ccc", "date": "Mar 1, 2016",  "amount": 350 },
-      's1:rowID7': {"categoryName": "FOOD",           "iconName": "home", "color": "#ccc", "date": "Mar 1, 2016",  "amount": 350 },
-      's1:rowID8': {"categoryName": "FOOD",           "iconName": "home", "color": "#ccc", "date": "Mar 1, 2016",  "amount": 350 },
+      '2016-03:rowID1': {"category": "FOOD",           "icon": "home", "color": "#ccc", "date": "Mar 3, 2016",  "amount": 150 },
+      '2016-03:rowID2': {"category": "TRANSPORTATION", "icon": "home", "color": "#ccc", "date": "Mar 2, 2016",  "amount": 250 },
+      '2016-03:rowID3': {"category": "FOOD",           "icon": "home", "color": "#ccc", "date": "Mar 1, 2016",  "amount": 350 },
+      '2016-03:rowID4': {"category": "FOOD",           "icon": "home", "color": "#ccc", "date": "Mar 1, 2016",  "amount": 350 },
+      '2016-03:rowID5': {"category": "FOOD",           "icon": "home", "color": "#ccc", "date": "Mar 1, 2016",  "amount": 350 },
+      '2016-03:rowID6': {"category": "FOOD",           "icon": "home", "color": "#ccc", "date": "Mar 1, 2016",  "amount": 350 },
+      '2016-03:rowID7': {"category": "FOOD",           "icon": "home", "color": "#ccc", "date": "Mar 1, 2016",  "amount": 350 },
+      '2016-03:rowID8': {"category": "FOOD",           "icon": "home", "color": "#ccc", "date": "Mar 1, 2016",  "amount": 350 },
 
-      's3:rowID1': {"categoryName": "FOOD",           "iconName": "home", "color": "#ccc", "date": "Feb 28, 2016", "amount": 350 },
-      's3:rowID2': {"categoryName": "GROCERIES",      "iconName": "home", "color": "#ccc", "date": "Feb 27, 2016", "amount": 450 },
-      's3:rowID3': {"categoryName": "FOOD",           "iconName": "home", "color": "#ccc", "date": "Feb 26, 2016", "amount": 550 },
-      's3:rowID4': {"categoryName": "FOOD",           "iconName": "home", "color": "#ccc", "date": "Feb 26, 2016", "amount": 550 },
+      '2016-01:rowID1': {"category": "FOOD",           "icon": "home", "color": "#ccc", "date": "Feb 28, 2016", "amount": 350 },
+      '2016-01:rowID2': {"category": "GROCERIES",      "icon": "home", "color": "#ccc", "date": "Feb 27, 2016", "amount": 450 },
+      '2016-01:rowID3': {"category": "FOOD",           "icon": "home", "color": "#ccc", "date": "Feb 26, 2016", "amount": 550 },
+      '2016-01:rowID4': {"category": "FOOD",           "icon": "home", "color": "#ccc", "date": "Feb 26, 2016", "amount": 550 },
     };
 
-    var  sectionIDs = [ 's1', 's2', 's3' ];
+    var  sectionIDs = [ '2016-03', '2016-02', '2016-01' ];
 
     var  rowIDs = [
       [ 'rowID1', 'rowID2', 'rowID3', 'rowID4', 'rowID5', 'rowID6', 'rowID7', 'rowID8'],
@@ -77,10 +81,8 @@ export default class Expense extends Component {
       [ 'rowID1', 'rowID2', 'rowID3', 'rowID4'],
     ];
 
-    // Update state
     this.setState({
-      dataSource: this.state.dataSource.cloneWithRowsAndSections(this.props.dataBlob, this.props.sectionIDs, this.props.rowIDs),
-      // dataSource: this.state.dataSource.cloneWithRowsAndSections(dataBlob, sectionIDs, rowIDs),
+      dataSource: this.state.dataSource.cloneWithRowsAndSections(dataBlob, sectionIDs, rowIDs),
       loaded: true
     });
   }
@@ -114,7 +116,7 @@ export default class Expense extends Component {
       <ListItem
         iconColor={'#fff'}
         iconLeftName={"expand-more"}
-        textPrimary={sectionData.month}
+        textPrimary={sectionData.month + ' ' + sectionData.year}
         textRight={"$" + sectionData.spent}
         containerStyle={[{backgroundColor: '#ccc'}]}
       />
@@ -133,7 +135,7 @@ export default class Expense extends Component {
         textPrimary={rowData.categoryName}
         textSecondary={rowData.date}
         textRight={"$" + rowData.amount}
-        />
+      />
     )
   }
 };
