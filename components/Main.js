@@ -102,13 +102,13 @@ export default class Main extends Component {
     console.log('_onToolbarDone');
     console.log(this.state.sceneState);
     if (this.state.sceneState.stateReady) {
-      if (this.state.sceneState.categoryEditing == false) {
+      if (this.state.sceneState.scene == 'categoryAdd') {
         this.props.onCategoryAddHandler(this.state.sceneState);
       }
-      else if (this.state.sceneState.categoryEditing == true) {
+      else if (this.state.sceneState.scene == 'categoryUpdate') {
         this.props.onCategoryUpdateHandler(this.state.sceneState);
       }
-      else if (this.state.sceneState.scene == 'expenseEditing') {
+      else if (this.state.sceneState.scene == 'expenseAdd') {
         this.props.onExpenseAddHandler(this.state.sceneState);
       }
       else if (this.state.sceneState.scene == 'expenseEditing') {

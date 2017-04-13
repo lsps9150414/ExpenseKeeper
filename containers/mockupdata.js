@@ -4,17 +4,17 @@ export var initStateTree = {
   expenses: [
     {
       id: 'ID-0',
-      date: new Date(2015, 10, 1),
       amount: 100,
-      category_id: 'ID-0',
+      date: new Date(2015, 10, 1),
       note: 'lunch at BurgerKing',
+      category_id: 'ID-0',
     },
     {
       id: 'ID-1',
-      date: new Date(2015, 10, 2),
       amount: 20,
-      category_id: 'ID-1',
+      date: new Date(2015, 10, 2),
       note: 'egg',
+      category_id: 'ID-1',
     },
     {
       id: 'ID-2',

@@ -25,19 +25,19 @@ export default class ExpenseEditing extends Component {
   constructor() {
     super();
     this.state = {
-      scene: 'expenseEditing',
       openModal: true,
       spentAmount: 0,
       selectedCategoryID: 'ID-0',
       stateReady: false,
-      renderPlaceholderOnly: true,
+      scene: 'expenseAdd',
+      isLoading: true,
     }
     this.radioGroup = new MKRadioButton.Group();
   }
   componentWillMount() {
     // console.log('componentWillMount');
     InteractionManager.runAfterInteractions(() => {
-      this.setState({renderPlaceholderOnly: false});
+      this.setState({isLoading: false});
     });
     this.props.getSceneState(this.state);
   }
@@ -49,7 +49,7 @@ export default class ExpenseEditing extends Component {
   //   console.log(this.state);
   // }
   render() {
-    if (this.state.renderPlaceholderOnly) {
+    if (this.state.isLoading) {
       return (
         <View>
           <Text>Loading...</Text>

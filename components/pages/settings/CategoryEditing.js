@@ -16,7 +16,7 @@ export default class CategoryEditing extends Component {
     categoryName:     PropTypes.string.isRequired,
     categoryIconName: PropTypes.string.isRequired,
     getSceneState:    PropTypes.func.isRequired,
-    categoryEditing:  PropTypes.bool,
+    scene:            PropTypes.string,
   }
   constructor(props) {
     super(props);
@@ -24,13 +24,8 @@ export default class CategoryEditing extends Component {
       categoryID:       this.props.categoryID,
       categoryName:     this.props.categoryName,
       categoryIconName: this.props.categoryIconName,
-      categoryEditing:  this.props.categoryEditing,
+      scene:            this.props.scene,
       stateReady:       false,
-      // categoryBudget: {
-      //   budgetEnabled: false,
-      //   budgetTimeframe: 'month',
-      //   budgetAmount: 0,
-      // },
     }
   }
 

@@ -16,7 +16,7 @@ const mapStateToProps = (state, passedProps) => {
   return {
     categoryName:     category ? category.name:  '',
     categoryIconName: category ? category.icon_name : '',
-    categoryEditing:  category ? true : false,
+    scene:            category ? 'categoryUpdate' : 'categoryAdd',
   }
 }
 
